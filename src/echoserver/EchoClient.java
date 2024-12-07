@@ -14,18 +14,38 @@ public class EchoClient {
             OutputStream socketOutputStream = socket.getOutputStream();
 
 
-            Thread inputThread = new Thread(() -> {
+        Thread inputThread = new Thread(() -> {
+            try {
+                int data;
+            while ((data = System.in.read()) != -1) {
+                socketOutputStream.write(data);
+            }
+            socket.shutdownOutput(); 
+            } catch (IOException e) {
+            System.err.println("An error occurred in the input thread: " + e.getMessage());
+        }
+        });
 
-            });
 
-            Thread outputThread = new Thread(() -> {
 
-            });
+        Thread outputThread = new Thread(() -> {
+        try {
+            int data;
+        while ((data = socketInputStream.read()) != -1) {
+            System.out.write(data);
+        }
+        System.out.flush(); 
+        } catch (IOException e) {
+        System.err.println("An error occurred in the output thread: " + e.getMessage());
+            }
+        });
+
+
 
 
             inputThread.start();
             outputThread.start();
-        }
+    }
 
 
 
