@@ -19,7 +19,7 @@ public class EchoServer {
         ServerSocket serverSocket = new ServerSocket(PORT_NUMBER);
         while (true) {
             Socket clientSocket = serverSocket.accept();
-            Thread clientHandler = new Thread(() -> handleClient(clientSocket));
+            Thread clientHandler = new Thread(() -> ManagesClient(clientSocket));
             clientHandler.start();
         }
     }
