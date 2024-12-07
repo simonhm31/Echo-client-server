@@ -45,6 +45,14 @@ public class EchoClient {
 
             inputThread.start();
             outputThread.start();
+
+        try {
+            inputThread.join();
+            outputThread.join();
+        } catch (InterruptedException ex) {
+        System.err.println("An interruption occurred in the client threads: " + ex.getMessage());
+        }
+
     }
 
 
