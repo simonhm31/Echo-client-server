@@ -7,14 +7,16 @@ public class EchoServer {
         server.start();
     }
 
-        private void start() throws IOException, InterruptedException {
+    private void start() throws IOException, InterruptedException {
         ServerSocket serverSocket = new ServerSocket(PORT_NUMBER);
         while (true) {
             Socket clientSocket = serverSocket.accept();
             Thread clientHandler = new Thread(() ->handleClient(clientSocket));
             clientHandler.start();
         }
+    }
 
-        
+    private void handleClient(Socket clientSocket){
+            
     }
 }
