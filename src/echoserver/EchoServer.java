@@ -16,7 +16,29 @@ public class EchoServer {
         }
     }
 
-    private void handleClient(Socket clientSocket){
-            
+    private void ManagesClient(Socket clientSocket) {
+    try (InputStream input = clientSocket.getInputStream();
+         OutputStream output = clientSocket.getOutputStream()) {
+
+        byte[] buffer = new byte[1024];  
+        int bytesRead;
+
+ 
+        while ((bytesRead = input.read(buffer)) != -1) {
+            output.write(buffer, 0, bytesRead);
+        }
+        output.flush();  
+
+    } catch (IOException e) {
+        System.err.println("Error handling client: " + e.getMessage());
+        e.printStackTrace();
+    } finally {
+        try {
+            clientSocket.close();  
+        } catch (IOException e) {
+            System.err.println("Error closing client socket: " + e.getMessage());
+        }
     }
+}
+
 }
